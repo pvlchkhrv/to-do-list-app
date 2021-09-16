@@ -15,6 +15,7 @@ type FormValuesType = {
 }
 
 export const Login = () => {
+    console.log('LOGIN')
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useSelector(selectIsLoggedIn);

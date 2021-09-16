@@ -16,6 +16,7 @@ type PropsType = {
 }
 
 function App({demo = false}: PropsType) {
+    console.log('app')
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -34,6 +35,7 @@ function App({demo = false}: PropsType) {
     }, [])
 
     if (!isInitialized) {
+        console.log('circular')
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
@@ -41,22 +43,22 @@ function App({demo = false}: PropsType) {
     }
 
     return (
-            <div className="App">
-                <ErrorSnackbar/>
-                <AppBar position="static">
-                    <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                            <Menu/>
-                        </IconButton>
-                        {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
-                    </Toolbar>
-                    {status === 'loading' && <LinearProgress/>}
-                </AppBar>
-                <Container fixed>
-                    <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
-                    <Route path={'/login'} render={() => <Login/>}/>
-                </Container>
-            </div>
+        <div className='App'>
+            <ErrorSnackbar/>
+            <AppBar position='static'>
+                <Toolbar>
+                    <IconButton edge='start' color='inherit' aria-label='menu'>
+                        <Menu/>
+                    </IconButton>
+                    {isLoggedIn && <Button color='inherit' onClick={logoutHandler}>Log out</Button>}
+                </Toolbar>
+                {status === 'loading' && <LinearProgress/>}
+            </AppBar>
+            <Container fixed>
+                <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                <Route path={'/login'} render={() => <Login/>}/>
+            </Container>
+        </div>
     )
 }
 
